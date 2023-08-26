@@ -20,6 +20,7 @@ Bem-vindo ao repositório do meu desafio front-end para a vaga na SEA Tecnologia
 - **Próximo Passo (Ainda não implementado)**: Redirecionamento para o próximo passo.
 - **Formulário de Funcionário**: Envio correto do formulário com JSON Server.
 - **Atestado de Saúde Ocupacional (opcional)**: Upload opcional de atestados.
+- **As informações dos funcionários estão sendo puxadas e gerenciadas pelo JSON Server, proporcionando uma simulação de interação com um servidor backend.
 
 ## Próximos Passos
 
