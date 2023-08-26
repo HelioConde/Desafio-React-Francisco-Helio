@@ -1,0 +1,8 @@
+:root {
+    --primary-color: rgb(79, 161, 193);
+    --background-white: rgb(255, 255, 255);
+    --color-white: rgb(255, 255, 255);
+    --border-radius1: 1.6rem;
+    --border-radius2: 1rem;
+    --font-size: 16px;
+}
