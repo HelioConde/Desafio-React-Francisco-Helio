@@ -1,5 +1,10 @@
-const Alert = () => {
-    return <h1>Alert</h1>;
-};
+import React, { useState, useEffect } from 'react';
 
-export default Alert;
+function Home() {
+
+  return (
+      <h1>Home</h1>
+  );
+}
+
+export default Home;

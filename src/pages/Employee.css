@@ -549,10 +549,11 @@ select {
 
 .epiActive {
     display: flex;
-    flex-direction: row;
     margin-top: 15px;
     align-items: center;
+    flex-direction: row;
 }
+
 
 .epiActive label {
     margin-right: 12px;
@@ -569,6 +570,19 @@ select {
     border-radius: 0.6rem;
     flex-direction: column;
     font-weight: 400;
+}
+
+.epiActiveControl {
+    display: flex;
+}
+
+.epiBoxActive {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.epiActiveShow {
+    display: flex;
 }
 
 .boxEpi button {
