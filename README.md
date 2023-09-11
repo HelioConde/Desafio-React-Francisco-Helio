@@ -8,6 +8,7 @@ Bem-vindo ao repositório do meu desafio front-end para a vaga na SEA Tecnologia
 - **Font Awesome**: Ícones vetoriais para melhorar a interface.
 - **React DOM**: Transforma componentes React em elementos do DOM.
 - **React Router DOM**: Navegação entre componentes sem recarregar a página.
+- **React Input Mask**: Biblioteca React para criar máscaras de entrada de dados, melhorando a formatação e validação de campos de texto.
 - **JSON Server**: Simulação de servidor backend durante o desenvolvimento.
 - **CSS**: Estilização e design da interface.
 
