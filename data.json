@@ -1,8 +1,8 @@
 {
   "data": [
     {
-      "ativo": "",
-      "name": "Daniel Alves da Silva",
+      "ativo": "Ativo",
+      "nome": "Daniel Alves da Silva",
       "sexo": "Masculino",
       "cpf": "999.999.999-99",
       "nascimento": "99/99/9999",
@@ -12,29 +12,38 @@
         {
           "atividade": "Ativid. 1",
           "epi": [
-            "Calçado de segurança",
-            "Capacete de segurança",
-            ""
+            "Calçado de segurança"
           ],
           "ca": [
-            "teste1",
-            "teste2",
-            "teste3"
-          ]
-        },
-        {
-          "atividade": "Ativid. 2",
-          "epi": [
-            "Capacete de segurança",
-            ""
-          ],
-          "ca": [
-            "teste5",
-            "teste6"
+            "teste1"
           ]
         }
       ],
+      "documento_ocupacional": null,
       "id": 1
+    },
+    {
+      "ativo": false,
+      "nome": "Vanessa Silva",
+      "sexo": "Feminino",
+      "cpf": "888.888.888-88",
+      "nascimento": "88/88/8888",
+      "rg": "8.888.888",
+      "cargo": "Cargo 1",
+      "Atividades": [
+        {
+          "atividade": "Ativid. 1",
+          "epi": [
+            "Calçado de segurança"
+          ],
+          "ca": [
+            ""
+          ]
+        }
+      ],
+      "documento_ocupacional": null,
+      "usaEPI": false,
+      "id": 2
     }
   ]
 }

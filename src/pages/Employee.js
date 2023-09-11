@@ -19,11 +19,11 @@ import {
 const UserDetail = ({ user }) => (
   <div className="menuActionUsers" key={user.id}>
     <div className="menuActionUsersInfo">
-      <div className="menuActionUserName">{user.name}</div>
+      <div className="menuActionUserName">{user.nome}</div>
       <div className="menuActionUserInfo">
         <div className="menuActionUserItems">{user.cpf}</div>
         <div className="menuActionUserItems">
-          {user.isActive ? "Ativo" : "Inativo"}
+          {user.ativo ? "Ativo" : "Inativo"}
         </div>
         <div className="menuActionUserItems">{user.cargo}</div>
       </div>
@@ -37,7 +37,7 @@ const UserDetail = ({ user }) => (
 const Employee = () => {
   // Armazenar os dados
   const [data, setData] = useState([]);
-  
+
   const [showActiveUsers, setShowActiveUsers] = useState(false);
   const [isAddingEmployee, setIsAddingEmployee] = useState(false);
   const [inputValue, setInputValue] = useState(false);
@@ -67,6 +67,7 @@ const Employee = () => {
 
   // Filtrando os usuários ativos
   const usuariosAtivos = data.filter((item) => item.ativo === "Ativo");
+
   const quantidadeUsuariosAtivos = usuariosAtivos.length;
   const quantidadeTotalUsuarios = data.length;
   const usuariosFiltrados = showActiveUsers ? usuariosAtivos : data;
@@ -154,7 +155,6 @@ const Employee = () => {
                       </div>
                       <div className="menuActionButtonAction">
                         <div className="menuActionButtonFilter">
-                          {/* Botões para filtrar usuários */}
                           <div onClick={() => setShowActiveUsers(true)}>
                             Ver apenas ativos
                           </div>

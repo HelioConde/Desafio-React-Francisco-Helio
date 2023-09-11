@@ -4,7 +4,7 @@ import InputMask from "react-input-mask";
 function Formulario() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dados, setDados] = useState({
-    ativo: true,
+    ativo: "Ativo",
     nome: "",
     sexo: "Masculino",
     cpf: "",
@@ -38,7 +38,7 @@ function Formulario() {
     const { checked } = e.target;
     setDados({
       ...dados,
-      usaEPI: checked,
+      naoUsaEPI: checked,
     });
   };
 
@@ -108,7 +108,7 @@ function Formulario() {
       console.log("Todos os campos estão preenchidos.");
     }
 
-    /*
+    
     // Enviar os dados do formulário para o servidor usando fetch
     fetch("http://localhost:3001/data/", {
       method: "POST",
@@ -120,7 +120,7 @@ function Formulario() {
         (data) => window.location.reload(),
         console.log("Dados enviados com sucesso:", dados)
       )
-      .catch((error) => console.error("Erro ao enviar os dados:", error));*/
+      .catch((error) => console.error("Erro ao enviar os dados:", error));
   };
 
   return (
@@ -238,11 +238,11 @@ function Formulario() {
               type="checkbox"
               id={`checkEPI`}
               onChange={handleUsaEPIChange}
-              checked={dados.usaEPI}
+              checked={dados.naoUsaEPI}
             />
             <label htmlFor={`checkEPI`}>O trabalhador não usa EPI.</label>
           </div>
-          {!dados.usaEPI ? (
+          {!dados.naoUsaEPI ? (
             <>
               {dados.Atividades.map((atividade, indiceAtividade) => (
                 <div key={indiceAtividade}>
