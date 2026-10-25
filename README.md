@@ -1,4 +1,16 @@
-# Desafio Front-end - SEA Tecnologia
+# Desafio Front-End — SEA Tecnologia
+
+**Implementação de interface em React baseada em um protótipo do Figma, com formulários e interação com dados de funcionários.**
+
+![React](https://img.shields.io/badge/React-interface-149ECA?logo=react&logoColor=white) ![Status](https://img.shields.io/badge/status-desafio%20técnico-64748b)
+
+## Visão rápida
+
+Este repositório registra a solução de um desafio seletivo, incluindo navegação, formulário de funcionários, filtros e integração de desenvolvimento com JSON Server. Confira as funcionalidades e limitações detalhadas a seguir.
+
+[**Ver protótipo Figma de referência**](https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1)
+
+---
 
 Bem-vindo ao repositório do meu desafio front-end para a vaga na SEA Tecnologia. Neste projeto, implementei a página conforme o protótipo fornecido  [link](https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1).
 
