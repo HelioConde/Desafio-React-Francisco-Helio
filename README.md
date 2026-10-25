@@ -1,52 +1,66 @@
-# Desafio Front-End — SEA Tecnologia
+<div align="center">
+  <h1>👷 Desafio React — SEA Tecnologia</h1>
+  <p><strong>Interface para cadastro de funcionários e acompanhamento de informações de EPI, desenvolvida como desafio técnico.</strong></p>
+  <p><img alt="React 18" src="https://img.shields.io/badge/React-18-149ECA?logo=react&logoColor=white"> <img alt="Status" src="https://img.shields.io/badge/status-projeto%20de%20estudo-64748b"></p>
+  <p><a href="https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1"><strong>Protótipo de referência (Figma)</strong></a> · <a href="#como-executar"><strong>Executar localmente</strong></a></p>
+</div>
 
-**Implementação de interface em React baseada em um protótipo do Figma, com formulários e interação com dados de funcionários.**
+## Sobre
 
-![React](https://img.shields.io/badge/React-interface-149ECA?logo=react&logoColor=white) ![Status](https://img.shields.io/badge/status-desafio%20técnico-64748b)
+Implementação de um desafio de **desenvolvimento front-end** para a SEA Tecnologia. O objetivo foi traduzir uma referência de design em telas navegáveis usando componentes React, formulários e dados para demonstração.
 
-## Visão rápida
+A estrutura do código inclui páginas para **funcionários, formulários, atividades/EPI, histórico e perfil**. É um projeto de portfólio histórico, e não um sistema empresarial auditado.
 
-Este repositório registra a solução de um desafio seletivo, incluindo navegação, formulário de funcionários, filtros e integração de desenvolvimento com JSON Server. Confira as funcionalidades e limitações detalhadas a seguir.
+## Tecnologias
 
-[**Ver protótipo Figma de referência**](https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1)
+| Tecnologia | Uso |
+| --- | --- |
+| React 18 + Create React App | Interface e componentes |
+| React Router | Navegação |
+| React Hook Form | Estado e validação de formulários |
+| React Input Mask | Máscaras de campos |
+| Font Awesome | Iconografia |
+| JSON Server | API local com dados de exemplo |
 
----
+## Como executar
 
-Bem-vindo ao repositório do meu desafio front-end para a vaga na SEA Tecnologia. Neste projeto, implementei a página conforme o protótipo fornecido  [link](https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1).
+Requer Node.js/npm compatíveis com as dependências originais.
 
-## Tecnologias e Bibliotecas
+```bash
+git clone https://github.com/HelioConde/Desafio-React-Francisco-Helio.git
+cd Desafio-React-Francisco-Helio
+npm install
+npm start
+```
 
-- **React**: Criação de interfaces interativas.
-- **Font Awesome**: Ícones vetoriais para melhorar a interface.
-- **React DOM**: Transforma componentes React em elementos do DOM.
-- **React Router DOM**: Navegação entre componentes sem recarregar a página.
-- **React Input Mask**: Biblioteca React para criar máscaras de entrada de dados, melhorando a formatação e validação de campos de texto.
-- **JSON Server**: Simulação de servidor backend durante o desenvolvimento.
-- **CSS**: Estilização e design da interface.
+Abra o endereço indicado pelo React Scripts, normalmente `http://localhost:3000`.
 
-## Funcionalidades Implementadas
+Para experimentar os dados locais, há `db.json` e `data.json` na raiz. Se as páginas precisarem de uma API JSON local, confira as URLs usadas no código e inicie um servidor de dados de teste, por exemplo:
 
-- **Botão "Adicionar Funcionários"**: Inserção de novos funcionários.
-- **Filtro para Funcionários Ativos**: Visualização de funcionários ativos.
-- **Limpar Filtros**: Restauração dos filtros padrão.
-- **Marcação de Etapa Concluída**: Indicação de conclusão de etapas.
-- **Próximo Passo (Ainda não implementado)**: Redirecionamento para o próximo passo.
-- **Formulário de Funcionário**: Envio correto do formulário com JSON Server.
-- **Atestado de Saúde Ocupacional (opcional)**: Upload opcional de atestados.
-- **As informações dos funcionários estão sendo puxadas e gerenciadas pelo JSON Server, proporcionando uma simulação de interação com um servidor backend.
-- **Foi implementado Responsive Web Design para funcionar bem em Mobile.
+```bash
+npx json-server --watch db.json --port 3001
+```
 
-## Próximos Passos
+**O comando acima é uma opção de desenvolvimento, não uma garantia de que todas as rotas usem essa porta.** Confira a configuração real ao reproduzir o exercício.
 
-- Implementar redirecionamento para o próximo passo.
-- Concluir as funcionalidades restantes do projeto.
+## Organização
 
-## Contato
+```text
+src/
+  App.js             Entrada da aplicação
+  NavBar.js          Navegação
+  pages/             Funcionários, EPI, formulários, histórico e perfil
+  index.js           Montagem do React
+public/              Recursos estáticos
+db.json, data.json   Dados de exemplo
+```
 
-- Nome: Francisco Hélio Conde dos Santos
-- WhatsApp: (61) 98497-0060
-- E-mail: helio.conde.contato@gmail.com
+## Limitações e evolução
 
----
+- Não há homologação de autenticação, permissões por usuário ou proteção de dados reais.
+- O projeto usa ferramentas/dependências históricas que podem exigir atualização.
+- Melhorias futuras: acessibilidade, testes de formulários, validação do fluxo CRUD e layouts mobile.
 
-Obrigado por conferir! Vamos trabalhar juntos? 😊
+> Não utilize informações verdadeiras de funcionários para testar a aplicação.
+
+**Projeto de estudo desenvolvido por [Hélio Conde](https://github.com/HelioConde).**
