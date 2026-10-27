@@ -1,66 +1,84 @@
 <div align="center">
-  <h1>👷 Desafio React — SEA Tecnologia</h1>
-  <p><strong>Interface para cadastro de funcionários e acompanhamento de informações de EPI, desenvolvida como desafio técnico.</strong></p>
-  <p><img alt="React 18" src="https://img.shields.io/badge/React-18-149ECA?logo=react&logoColor=white"> <img alt="Status" src="https://img.shields.io/badge/status-projeto%20de%20estudo-64748b"></p>
-  <p><a href="https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1"><strong>Protótipo de referência (Figma)</strong></a> · <a href="#como-executar"><strong>Executar localmente</strong></a></p>
+
+# 👷 Gestão de Funcionários e EPIs — Desafio React
+
+**Aplicação demonstrativa modernizada a partir de um desafio técnico da SEA Tecnologia.**
+
+React 18 · Vite · JSON Server · Testes Vitest e Playwright
+
+[Referência de design no Figma](https://www.figma.com/file/gGePjuPTHdH7pISofjrzxB/Desafio-React?node-id=0%3A1) · [Guia visual](docs/DESIGN_SYSTEM.md)
+
 </div>
 
-## Sobre
+## Funcionalidades
 
-Implementação de um desafio de **desenvolvimento front-end** para a SEA Tecnologia. O objetivo foi traduzir uma referência de design em telas navegáveis usando componentes React, formulários e dados para demonstração.
+- Dashboard com funcionários totais, ativos, com EPI e CAs cadastrados.
+- CRUD completo de funcionários: criar, consultar, editar e excluir com confirmação.
+- Pesquisa por nome/cargo/status; filtros combinados, ordenação e paginação.
+- Formulário com validação de CPF, campos obrigatórios, atividades, EPIs e CA.
+- Anexos PDF/PNG/JPG de até 2 MB salvos localmente em IndexedDB.
+- Histórico de modificações no navegador e página informativa.
+- Menu responsivo, foco visível, rótulos acessíveis e movimento reduzido.
 
-A estrutura do código inclui páginas para **funcionários, formulários, atividades/EPI, histórico e perfil**. É um projeto de portfólio histórico, e não um sistema empresarial auditado.
+> **Atenção:** projeto de estudo. Use apenas dados fictícios. Não há autenticação, controle de acesso ou backend seguro para informações reais de RH.
 
-## Tecnologias
+## Execução local (com API JSON Server)
 
-| Tecnologia | Uso |
-| --- | --- |
-| React 18 + Create React App | Interface e componentes |
-| React Router | Navegação |
-| React Hook Form | Estado e validação de formulários |
-| React Input Mask | Máscaras de campos |
-| Font Awesome | Iconografia |
-| JSON Server | API local com dados de exemplo |
-
-## Como executar
-
-Requer Node.js/npm compatíveis com as dependências originais.
+Requer Node.js **22** e npm.
 
 ```bash
-git clone https://github.com/HelioConde/Desafio-React-Francisco-Helio.git
-cd Desafio-React-Francisco-Helio
 npm install
-npm start
+npm run dev:api
 ```
 
-Abra o endereço indicado pelo React Scripts, normalmente `http://localhost:3000`.
-
-Para experimentar os dados locais, há `db.json` e `data.json` na raiz. Se as páginas precisarem de uma API JSON local, confira as URLs usadas no código e inicie um servidor de dados de teste, por exemplo:
+Em outro terminal:
 
 ```bash
-npx json-server --watch db.json --port 3001
+npm run dev
 ```
 
-**O comando acima é uma opção de desenvolvimento, não uma garantia de que todas as rotas usem essa porta.** Confira a configuração real ao reproduzir o exercício.
+Abra `http://localhost:5173`. O Vite redireciona `/api/data` ao JSON Server local na porta 3001, que persiste alterações no `data.json`.
 
-## Organização
+## Demonstração estática (sem servidor ou banco)
+
+```bash
+npm run build
+npm run preview
+```
+
+O build de produção usa **localStorage** para os cadastros fictícios e **IndexedDB** para os anexos; os dados ficam restritos a cada navegador. O workflow de GitHub Pages configura o caminho do repositório e utiliza `HashRouter` para navegação sem servidor.
+
+Para publicar, configure em **Settings → Pages → Build and deployment → GitHub Actions**. A disponibilidade da publicação depende das permissões e do plano do repositório.
+
+## Qualidade e testes
+
+```bash
+npm run lint
+npm run test:unit
+npx playwright install chromium
+npm run test:e2e
+```
+
+O Playwright inicia automaticamente a API de teste e o Vite, verifica cadastro/edição/exclusão, filtros, anexos, persistência e layouts de **375×812**, **768×1024** e **1600×900**. A suíte gera capturas reais no diretório `test-results/` (desktop e mobile). O GitHub Actions anexa as evidências aos workflows.
+
+**Observação:** as capturas só representam o estado real após a execução dos testes; não há imagens ilustrativas simulando a aplicação no README.
+
+## Estrutura
 
 ```text
 src/
-  App.js             Entrada da aplicação
-  NavBar.js          Navegação
-  pages/             Funcionários, EPI, formulários, histórico e perfil
-  index.js           Montagem do React
-public/              Recursos estáticos
-db.json, data.json   Dados de exemplo
+  components/         Layout e formulário reutilizável
+  data/               Dados fictícios para demo estática
+  lib/                API, normalização, validação, anexos e histórico
+  pages/              Dashboard, listagem, detalhes, histórico e perfil
+  App.jsx             Rotas da aplicação
+  styles.css          Tokens e estilos responsivos
+e2e/                   Testes Playwright
+docs/DESIGN_SYSTEM.md  Guia visual e acessibilidade
+.github/workflows/      CI e publicação Pages
+data.json              API local para desenvolvimento
 ```
 
-## Limitações e evolução
+## Origem
 
-- Não há homologação de autenticação, permissões por usuário ou proteção de dados reais.
-- O projeto usa ferramentas/dependências históricas que podem exigir atualização.
-- Melhorias futuras: acessibilidade, testes de formulários, validação do fluxo CRUD e layouts mobile.
-
-> Não utilize informações verdadeiras de funcionários para testar a aplicação.
-
-**Projeto de estudo desenvolvido por [Hélio Conde](https://github.com/HelioConde).**
+Projeto histórico de portfólio criado por [Hélio Conde](https://github.com/HelioConde). O Figma original é a referência conceitual, mas a verificação automatizada de fidelidade depende de acesso ao arquivo.
