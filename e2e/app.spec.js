@@ -88,3 +88,20 @@ test('capturas demonstrativas para revisão visual', async ({ page }) => {
   await expect(page.locator('.mobile-employee-list')).toBeVisible();
   await page.screenshot({ path: 'test-results/funcionarios-mobile.png', fullPage: true });
 });
+
+
+test('dados locais corrompidos mostram recuperação explícita, sem exclusão silenciosa', async ({ page }) => {
+  await page.goto('./#/funcionarios');
+  await expect(page.getByRole('heading', { name: 'Funcionários', exact: true })).toBeVisible();
+  await page.evaluate(() => localStorage.setItem('sea-demo-employees-v2', '{"quebrado":true}'));
+  await page.reload();
+  await expect(page.getByRole('alert')).toContainText('dados locais da demonstração estão inválidos');
+  await expect(page.getByText('Funcionário Exemplo 01')).toHaveCount(0);
+  page.once('dialog', dialog => dialog.dismiss());
+  await page.getByRole('button', { name: 'Restaurar exemplos' }).click();
+  await expect(page.getByRole('alert')).toContainText('inválidos');
+  page.once('dialog', dialog => dialog.accept());
+  await page.getByRole('button', { name: 'Restaurar exemplos' }).click();
+  await expect(page.getByText('Funcionário Exemplo 01').first()).toBeVisible();
+  await expect(page.getByRole('status')).toContainText('restaurados');
+});

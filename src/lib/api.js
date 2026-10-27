@@ -7,13 +7,37 @@ const KEY = 'sea-demo-employees-v2';
 export const isDemo = import.meta.env.VITE_DATA_MODE === 'demo' || (import.meta.env.PROD && import.meta.env.VITE_DATA_MODE !== 'api');
 const URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '') + '/data';
 const clone = (obj) => JSON.parse(JSON.stringify(obj));
-function loadDemo() {
-  try {
-    const stored = localStorage.getItem(KEY);
-    return stored === null ? clone(sampleEmployees) : JSON.parse(stored);
-  } catch { return clone(sampleEmployees); }
+const corruptedDataMessage = 'Os dados locais da demonstração estão inválidos. Use Restaurar exemplos após conferir seus registros.';
+function validDemoRecord(person) {
+  if (!person || typeof person !== 'object' || Array.isArray(person)) return false;
+  if (!(typeof person.id === 'string' || Number.isSafeInteger(person.id)) ||
+      typeof person.nome !== 'string' || typeof person.cargo !== 'string') return false;
+  const activities = person.atividades ?? person.Atividades ?? [];
+  if (!Array.isArray(activities) || activities.length > 100) return false;
+  return activities.every((activity) => activity && typeof activity === 'object' &&
+    Array.isArray(activity.epis ?? activity.epi ?? []) &&
+    (activity.epis ?? activity.epi ?? []).length <= 100);
 }
-function writeDemo(list) { localStorage.setItem(KEY, JSON.stringify(list)); }
+function loadDemo() {
+  let stored;
+  try { stored = localStorage.getItem(KEY); }
+  catch { throw new Error('O armazenamento deste navegador está indisponível.'); }
+  if (stored === null) return clone(sampleEmployees);
+  let parsed;
+  try { parsed = JSON.parse(stored); }
+  catch { throw new Error(corruptedDataMessage); }
+  if (!Array.isArray(parsed) || parsed.length > 500 || !parsed.every(validDemoRecord))
+    throw new Error(corruptedDataMessage);
+  return parsed;
+}
+function writeDemo(list) {
+  try { localStorage.setItem(KEY, JSON.stringify(list)); }
+  catch { throw new Error('Não foi possível salvar neste navegador. Verifique o espaço e as permissões.'); }
+}
+export function resetDemoEmployees() {
+  if (!isDemo) throw new Error('A restauração de exemplos só está disponível na demonstração.');
+  writeDemo(clone(sampleEmployees));
+}
 async function request(path = '', options) {
   let response;
   try { response = await fetch(URL + path, options); }

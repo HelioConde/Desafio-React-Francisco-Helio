@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { listEmployees, removeEmployee } from '../lib/api.js';
+import { isDemo, listEmployees, removeEmployee, resetDemoEmployees } from '../lib/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faEye, faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,11 +46,20 @@ export default function Employees() {
     } catch (e) { setError(e.message); }
     finally { setBusy(null); }
   }
+  async function restoreExamples() {
+    if (!window.confirm('Substituir os cadastros locais pelos funcionários fictícios de exemplo? Esta ação apagará as alterações locais.')) return;
+    try {
+      resetDemoEmployees();
+      setPage(1);
+      await reload();
+      setMessage('Exemplos locais restaurados.');
+    } catch (e) { setError(e.message); }
+  }
   const change = (setter) => (event) => { setter(event.target.value); setPage(1); };
   return (
     <div className="stack employees-page">
       <div className="page-heading"><div><p className="eyebrow">CADASTROS</p><h1>Funcionários</h1><p>Pesquise e gerencie informações de trabalhadores e EPIs.</p></div><Link className="btn btn-primary" to="/funcionarios/novo">+ Adicionar funcionário</Link></div>
-      {error && <div className="notice notice-error" role="alert">{error} <button className="link-button" type="button" onClick={reload}>Tentar novamente</button></div>}
+      {error && <div className="notice notice-error" role="alert">{error} <button className="link-button" type="button" onClick={reload}>Tentar novamente</button>{isDemo && <button className="link-button" type="button" onClick={restoreExamples}>Restaurar exemplos</button>}</div>}
       {message && <div className="notice notice-success" role="status">{message}</div>}
       <section className="panel" aria-labelledby="titulo-lista">
         <div className="panel-heading"><div><h2 id="titulo-lista">Lista de funcionários</h2><p aria-live="polite">{loading ? 'Carregando…' : filtered.length + ' resultado(s)'}</p></div></div>

@@ -45,3 +45,9 @@ Modernizar a experiência sem perder a referência original do desafio SEA Tecno
 
 ## Segurança e restrições
 Dados de demonstração somente. Sem login/permissões reais. JSON Server serve apenas como API local para testes; build Pages usa localStorage. Anexos no IndexedDB do navegador, sem envio para API e sem sincronização.
+
+## Segurança da demonstração local — recuperação explícita
+- JSON do navegador é validado antes de renderizar funcionários; estruturas inválidas ou mais de 500 registros geram um erro legível e não são apagadas silenciosamente.
+- A restauração de exemplos fictícios fica disponível **somente no modo demonstração**, exige confirmação e preserva a escolha de cancelar.
+- Falhas de quota e bloqueio de localStorage recebem feedback sem alegar persistência remota.
+- Playwright valida armazenamento corrompido, cancelamento e restauração confirmada.
