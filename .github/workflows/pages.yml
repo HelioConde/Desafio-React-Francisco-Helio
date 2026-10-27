@@ -30,6 +30,8 @@ jobs:
           test -f dist/index.html
           grep -q "/Desafio-React-Francisco-Helio/assets/" dist/index.html
           test -f dist/favicon.ico
+          test -f dist/favicon.svg
+          grep -q 'favicon.svg' dist/index.html
       - name: Preparar Pages
         uses: actions/configure-pages@v5
       - name: Enviar artefato estático
