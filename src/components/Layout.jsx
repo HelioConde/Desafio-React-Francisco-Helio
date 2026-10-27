@@ -17,7 +17,7 @@ export default function Layout() {
   const current = navigation.find((item) => item.end ? location.pathname === '/' : location.pathname.startsWith(item.to));
   return (
     <div className="app-shell">
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
+      <a className="skip-link" href="#conteudo" onClick={(event) => { event.preventDefault(); document.getElementById("conteudo")?.focus(); }}>Pular para o conteúdo</a>
       <aside className={'sidebar ' + (menuOpen ? 'sidebar-open' : '')} aria-label="Menu principal">
         <div className="brand">
           <div className="brand-icon" aria-hidden="true"><FontAwesomeIcon icon={faHelmetSafety} /></div>

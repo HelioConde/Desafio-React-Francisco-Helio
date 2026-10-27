@@ -4,8 +4,8 @@ test('dashboard e navegação carregam registros da API', async ({ page }) => {
   await page.goto('/#/');
   await expect(page.getByRole('heading', { name: 'Visão geral' })).toBeVisible();
   await expect(page.getByText('Funcionário Exemplo 01').first()).toBeVisible();
-  await page.getByRole('link', { name: 'Funcionários', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Funcionários', exact: true })).toBeVisible();
+  await page.getByRole('link', { name: 'Funcionários' }).click();
+  await expect(page.getByRole('heading', { name: 'Funcionários' })).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
 });
 
@@ -68,7 +68,7 @@ for (const viewport of [{ width: 375, height: 812 }, { width: 768, height: 1024 
   test('layout sem estouro horizontal: ' + viewport.width + '×' + viewport.height, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('/#/funcionarios');
-    await expect(page.getByRole('heading', { name: 'Funcionários', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Funcionários' })).toBeVisible();
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
     if (viewport.width < 821) {
       await page.getByRole('button', { name: 'Abrir menu' }).click();
