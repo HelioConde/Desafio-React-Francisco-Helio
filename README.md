@@ -48,7 +48,11 @@ npm run preview
 
 O build de produção usa **localStorage** para os cadastros fictícios e **IndexedDB** para os anexos; os dados ficam restritos a cada navegador. O workflow de GitHub Pages configura o caminho do repositório e utiliza `HashRouter` para navegação sem servidor.
 
-Para publicar, configure em **Settings → Pages → Build and deployment → GitHub Actions**. A disponibilidade da publicação depende das permissões e do plano do repositório.
+O endereço esperado após o deploy é **https://helioconde.github.io/Desafio-React-Francisco-Helio/**.
+
+Para publicar, configure em **Settings → Pages → Build and deployment → GitHub Actions**, mantenha a branch `main` como base e execute `GitHub Pages • Publicação React` (ou faça push para `main`). O workflow constrói a versão do Vite com o subcaminho correto, publica `dist/` e testa a URL pública.
+
+**Atenção:** se o workflow concluir antes de receber runner (`runner_id: 0` / `steps: []`), verifique as permissões de Actions, o estado de faturamento/cotas e eventuais bloqueios do GitHub. Alterar os arquivos do repositório não resolve por si só falhas de provisionamento de runner.
 
 ## Qualidade e testes
 
@@ -59,7 +63,13 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-O Playwright inicia automaticamente a API de teste e o Vite, verifica cadastro/edição/exclusão, filtros, anexos, persistência e layouts de **375×812**, **768×1024** e **1600×900**. A suíte gera capturas reais no diretório `test-results/` (desktop e mobile). O GitHub Actions anexa as evidências aos workflows.
+O Playwright inicia o Vite automaticamente com `npm run dev:demo`, sem modificar `data.json`. Verifica CRUD, filtros, anexos, persistência e layout. Para a auditoria completa:
+
+```bash
+npm run test:visual
+```
+
+O comando fotografa sete telas em **320×720, 375×812, 768×1024, 1024×768 e 1600×900**, avalia console e exceções JavaScript, requisições falhadas e problemas de layout. Depois, abra `test-results/visual-audit/index.html`. Mais detalhes em [Auditoria visual automatizada](docs/VISUAL_QA.md). O GitHub Actions anexa capturas e relatórios a cada execução.
 
 **Observação:** as capturas só representam o estado real após a execução dos testes; não há imagens ilustrativas simulando a aplicação no README.
 

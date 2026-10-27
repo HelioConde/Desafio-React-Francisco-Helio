@@ -1,32 +1,82 @@
-name: Publicar demonstração no GitHub Pages
+name: GitHub Pages • Publicação React
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: github-pages-production
+  cancel-in-progress: false
+
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
+    name: Compilar demonstração estática
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-audit --no-fund
-      - name: Build da demonstração estática
-        run: GITHUB_PAGES=true VITE_DATA_MODE=demo npm run build
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+      - name: Verificar compilação do subcaminho Pages
+        run: |
+          GITHUB_PAGES=true VITE_DATA_MODE=demo npm run build
+          test -f dist/index.html
+          grep -q "/Desafio-React-Francisco-Helio/assets/" dist/index.html
+          test -f dist/favicon.ico
+      - name: Preparar Pages
+        uses: actions/configure-pages@v5
+      - name: Enviar artefato estático
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
-      - id: deployment
+          path: ./dist
+
+  deploy:
+    name: Publicar site e informar URL
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
+
+  smoke:
+    name: Conferir Pages publicado
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: true
+      QA_BASE_URL: https://helioconde.github.io/Desafio-React-Francisco-Helio/
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        run: npm install --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Verificação do site publicado
+        run: npm run test:smoke
+      - name: Capturar telas e verificar console/layout na URL pública
+        if: success()
+        run: npm run test:visual
+      - name: Guardar capturas e relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-publicado-capturas
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14
+          if-no-files-found: warn
