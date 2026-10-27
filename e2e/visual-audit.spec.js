@@ -133,6 +133,10 @@ test.describe('Capturas automáticas + console + responsividade', () => {
           await expect(page.getByRole('heading', { name: site.title, exact: true }).first()).toBeVisible({ timeout: 12_000 });
           await page.waitForFunction(() => !document.querySelector('[aria-busy="true"]'), null, { timeout: 8_000 });
           issues.push(...await inspectLayout(page));
+          if (site.name === 'funcionarios' && viewport.width <= 600) {
+            await expect(page.locator('.mobile-employee-list')).toBeVisible();
+            await expect(page.locator('.mobile-person-actions').first()).toBeVisible();
+          }
         } catch (error) {
           issues.push({ kind: 'navigation-or-layout', message: String(error.message || error).slice(0, 1200) });
         }

@@ -85,6 +85,6 @@ test('capturas demonstrativas para revisão visual', async ({ page }) => {
   await page.screenshot({ path: 'test-results/dashboard-desktop.png', fullPage: true });
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto('./#/funcionarios');
-  await expect(page.getByRole('table')).toBeVisible();
+  await expect(page.locator('.mobile-employee-list')).toBeVisible();
   await page.screenshot({ path: 'test-results/funcionarios-mobile.png', fullPage: true });
 });
