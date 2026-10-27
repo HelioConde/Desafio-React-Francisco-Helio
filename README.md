@@ -69,7 +69,7 @@ O Playwright inicia o Vite automaticamente com `npm run dev:demo`, sem modificar
 npm run test:visual
 ```
 
-O comando fotografa sete telas em **320×720, 375×812, 768×1024, 1024×768 e 1600×900**, avalia console e exceções JavaScript, requisições falhadas e problemas de layout. Depois, abra `test-results/visual-audit/index.html`. Mais detalhes em [Auditoria visual automatizada](docs/VISUAL_QA.md). O GitHub Actions anexa capturas e relatórios a cada execução.
+O comando fotografa sete telas em **320×720, 375×812, 768×1024, 1024×768, 1366×648 e 1600×900**, avalia console e exceções JavaScript, requisições falhadas e problemas de layout. Depois, abra `test-results/visual-audit/index.html`. Mais detalhes em [Auditoria visual automatizada](docs/VISUAL_QA.md). O GitHub Actions anexa capturas e relatórios a cada execução.
 
 **Observação:** as capturas só representam o estado real após a execução dos testes; não há imagens ilustrativas simulando a aplicação no README.
 

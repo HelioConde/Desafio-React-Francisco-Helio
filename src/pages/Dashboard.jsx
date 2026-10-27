@@ -23,7 +23,7 @@ export default function Dashboard() {
     { title: 'CAs cadastrados', value: certificates, icon: faTriangleExclamation, tone: 'amber' },
   ];
   return (
-    <div className="stack">
+    <div className="stack dashboard-page">
       <div className="page-heading"><div><p className="eyebrow">PAINEL DE CONTROLE</p><h1>Visão geral</h1><p>Acompanhe funcionários e registros de equipamentos de proteção.</p></div><Link className="btn btn-primary" to="/funcionarios/novo">+ Novo funcionário</Link></div>
       {isDemo && <div className="notice notice-info" role="note">Modo demonstração: alterações e anexos ficam somente neste navegador. Não use informações reais.</div>}
       {error && <div className="notice notice-error" role="alert">{error} <button className="link-button" type="button" onClick={() => window.location.reload()}>Tentar novamente</button></div>}

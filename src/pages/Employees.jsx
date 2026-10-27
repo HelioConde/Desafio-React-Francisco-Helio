@@ -48,7 +48,7 @@ export default function Employees() {
   }
   const change = (setter) => (event) => { setter(event.target.value); setPage(1); };
   return (
-    <div className="stack">
+    <div className="stack employees-page">
       <div className="page-heading"><div><p className="eyebrow">CADASTROS</p><h1>Funcionários</h1><p>Pesquise e gerencie informações de trabalhadores e EPIs.</p></div><Link className="btn btn-primary" to="/funcionarios/novo">+ Adicionar funcionário</Link></div>
       {error && <div className="notice notice-error" role="alert">{error} <button className="link-button" type="button" onClick={reload}>Tentar novamente</button></div>}
       {message && <div className="notice notice-success" role="status">{message}</div>}
