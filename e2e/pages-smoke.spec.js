@@ -14,7 +14,7 @@ test('GitHub Pages: assets, SPA e persistência de demonstração', async ({ pag
   await page.getByRole('link', { name: 'Adicionar funcionário' }).first().click();
   await expect(page.getByRole('heading', { name: 'Adicionar funcionário', exact: true })).toBeVisible();
   await page.getByRole('textbox', { name: /Nome completo/ }).fill('Funcionário QA Pages');
-  await page.getByRole('textbox', { name: /Cargo/ }).fill('Teste automático');
+  await page.locator('input[name="cargo"]').fill('Teste automático');
   await page.getByRole('button', { name: 'Cadastrar funcionário' }).click();
   await expect(page.getByRole('heading', { name: 'Funcionário QA Pages' })).toBeVisible();
   await page.reload();

@@ -5,7 +5,7 @@ test('dashboard e navegação carregam registros da API', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Visão geral' })).toBeVisible();
   await expect(page.getByText('Funcionário Exemplo 01').first()).toBeVisible();
   await page.getByRole('link', { name: 'Funcionários', exact: true }).click();
-  await expect(page.getByRole('heading', { name: 'Funcionários' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Funcionários', exact: true })).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
 });
 
@@ -16,7 +16,7 @@ test('valida, cadastra, edita, persiste e exclui funcionário', async ({ page })
   await expect(page.getByRole('alert')).toContainText('Revise os campos');
   await expect(page.getByText('Informe o nome com pelo menos 3 caracteres.')).toBeVisible();
   await page.getByRole('textbox', { name: /Nome completo/ }).fill('Funcionário QA E2E');
-  await page.getByRole('textbox', { name: /Cargo/ }).fill('Teste automatizado');
+  await page.locator('input[name="cargo"]').fill('Teste automatizado');
   await page.getByRole('button', { name: 'Cadastrar funcionário' }).click();
   await expect(page.getByRole('heading', { name: 'Funcionário QA E2E' })).toBeVisible();
   await page.getByRole('link', { name: 'Editar cadastro' }).click();
@@ -40,7 +40,7 @@ test('anexo PDF fica acessível e arquivo inválido é rejeitado', async ({ page
   page.on('dialog', (dialog) => dialog.accept());
   await page.goto('./#/funcionarios/novo');
   await page.getByRole('textbox', { name: /Nome completo/ }).fill('Funcionário QA Anexo');
-  await page.getByRole('textbox', { name: /Cargo/ }).fill('Teste automatizado');
+  await page.locator('input[name="cargo"]').fill('Teste automatizado');
   await page.locator('input[type="file"]').setInputFiles({
     name: 'evidencia.pdf', mimeType: 'application/pdf', buffer: Buffer.from('%PDF-1.4\nDocumento sintético'),
   });
@@ -59,7 +59,7 @@ test('anexo PDF fica acessível e arquivo inválido é rejeitado', async ({ page
     name: 'script.html', mimeType: 'text/html', buffer: Buffer.from('<script>bad</script>'),
   });
   await page.getByRole('textbox', { name: /Nome completo/ }).fill('Funcionário Teste Arquivo');
-  await page.getByRole('textbox', { name: /Cargo/ }).fill('Teste automatizado');
+  await page.locator('input[name="cargo"]').fill('Teste automatizado');
   await page.getByRole('button', { name: 'Cadastrar funcionário' }).click();
   await expect(page.getByRole('alert')).toContainText('Revise os campos');
 });
@@ -68,7 +68,7 @@ for (const viewport of [{ width: 375, height: 812 }, { width: 768, height: 1024 
   test('layout sem estouro horizontal: ' + viewport.width + '×' + viewport.height, async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto('./#/funcionarios');
-    await expect(page.getByRole('heading', { name: 'Funcionários' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Funcionários', exact: true })).toBeVisible();
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1)).toBe(true);
     if (viewport.width < 821) {
       await page.getByRole('button', { name: 'Abrir menu' }).click();
