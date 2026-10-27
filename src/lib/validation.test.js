@@ -23,6 +23,10 @@ describe('CPF e validação', () => {
     });
     expect(errors['ca-0-0']).toMatch(/CA numérico/);
   });
+  it('exige atividade se usuário informar que utiliza EPI', () => {
+    const errors = validateEmployee({ nome: 'Teste QA', cargo: 'Cargo', naoUsaEPI: false, atividades: [] });
+    expect(errors.atividades).toBeDefined();
+  });
   it('normaliza funcionários de dados antigos', () => {
     const old = normalizeEmployee({
       nome: '  Exemplo  ', ativo: 'Ativo', Atividades: [{ atividade: 'Expedição', epi: ['Capacete'], ca: ['12345'] }],
@@ -35,6 +39,7 @@ describe('CPF e validação', () => {
   it('rejeita datas impossíveis e datas futuras', () => {
     expect(validateEmployee({ nome: 'Teste QA', cargo: 'Cargo', nascimento: '2026-13-04', naoUsaEPI: true }).nascimento).toBeDefined();
     expect(validateEmployee({ nome: 'Teste QA', cargo: 'Cargo', nascimento: '2999-01-01', naoUsaEPI: true }).nascimento).toBeDefined();
+    expect(validateEmployee({ nome: 'Teste QA', cargo: 'Cargo', nascimento: '2026-02-30', naoUsaEPI: true }).nascimento).toBeDefined();
   });
 });
 describe('anexos', () => {

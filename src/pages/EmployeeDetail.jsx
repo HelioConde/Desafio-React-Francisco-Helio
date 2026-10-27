@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { getEmployee } from '../lib/api.js';
 import { getAttachment } from '../lib/attachments.js';
 
 export default function EmployeeDetail() {
   const { id } = useParams();
+  const location = useLocation();
   const [employee, setEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -27,6 +28,7 @@ export default function EmployeeDetail() {
   if (!employee) return <div className="panel empty" role="alert">{error || 'Funcionário não encontrado.'} <Link to="/funcionarios">Voltar</Link></div>;
   return <div className="stack">
     <div className="page-heading"><div><p className="eyebrow">DETALHES DO CADASTRO</p><h1>{employee.nome}</h1><p>{employee.cargo} • <span className={'status ' + (employee.ativo ? 'status-active' : 'status-inactive')}>{employee.ativo ? 'Ativo' : 'Inativo'}</span></p></div><div className="heading-actions"><Link className="btn btn-outline" to="/funcionarios">Voltar</Link><Link className="btn btn-primary" to={'/funcionarios/' + id + '/editar'}>Editar cadastro</Link></div></div>
+    {location.state?.warning && <div className="notice notice-error" role="alert">{location.state.warning}</div>}
     {error && <div className="notice notice-error" role="alert">{error}</div>}
     <section className="panel"><h2>Informações pessoais</h2><dl className="details-grid"><div><dt>Nome</dt><dd>{employee.nome}</dd></div><div><dt>Cargo</dt><dd>{employee.cargo}</dd></div><div><dt>CPF</dt><dd>{employee.cpf || 'Não informado'}</dd></div><div><dt>Nascimento</dt><dd>{employee.nascimento || 'Não informado'}</dd></div><div><dt>Sexo</dt><dd>{employee.sexo}</dd></div><div><dt>RG</dt><dd>{employee.rg || 'Não informado'}</dd></div></dl></section>
     <section className="panel"><h2>Atividades e EPIs</h2>{employee.naoUsaEPI ? <p>Funcionário marcado como não usuário de EPI.</p> : !employee.atividades.length ? <p>Sem atividades registradas.</p> : employee.atividades.map((a) => <div className="activity-detail" key={a.id}><h3>{a.nome}</h3>{a.epis.map((epi) => <p key={epi.id}>{epi.nome} <span className="muted">• CA {epi.ca}</span></p>)}</div>)}</section>

@@ -42,9 +42,12 @@ export const validateEmployee = (raw) => {
   if (e.nome.length < 3) errors.nome = 'Informe o nome com pelo menos 3 caracteres.';
   if (!e.cargo.trim()) errors.cargo = 'Informe o cargo.';
   if (e.cpf && !validCpf(e.cpf)) errors.cpf = 'CPF inválido. Deixe vazio para uma demonstração.';
-  if (e.nascimento && (!/^\d{4}-\d{2}-\d{2}$/.test(e.nascimento) || !Number.isFinite(Date.parse(e.nascimento)) || new Date(e.nascimento) > new Date())) {
+  const date = e.nascimento && new Date(e.nascimento + 'T12:00:00Z');
+  const isoDate = date instanceof Date && Number.isFinite(date.getTime()) ? date.toISOString().slice(0, 10) : '';
+  if (e.nascimento && (isoDate !== e.nascimento || date > new Date())) {
     errors.nascimento = 'Informe uma data de nascimento válida.';
   }
+  if (!e.naoUsaEPI && !e.atividades.length) errors.atividades = 'Inclua pelo menos uma atividade.';
   if (!e.naoUsaEPI) e.atividades.forEach((a, i) => {
     if (!a.nome.trim()) errors['atividade-' + i] = 'Informe a atividade.';
     if (!a.epis.length) errors['atividade-epis-' + i] = 'Inclua pelo menos um EPI.';

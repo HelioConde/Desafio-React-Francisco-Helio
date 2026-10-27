@@ -32,7 +32,7 @@ export async function getEmployee(id) {
   try { return normalizeEmployee(await request('/' + encodeURIComponent(id))); }
   catch (error) { if (error.message.includes('(404)')) return null; throw error; }
 }
-export async function saveEmployee(raw) {
+export async function saveEmployee(raw, { log = true } = {}) {
   const e = normalizeEmployee(raw);
   const hasId = e.id !== undefined && e.id !== null;
   const now = new Date().toISOString();
@@ -57,7 +57,7 @@ export async function saveEmployee(raw) {
       body: JSON.stringify(hasId ? payload : Object.fromEntries(Object.entries(payload).filter(([key]) => key !== 'id'))),
     });
   }
-  recordHistory(hasId ? 'Edição' : 'Cadastro', result);
+  if (log) recordHistory(hasId ? 'Edição' : 'Cadastro', result);
   return normalizeEmployee(result);
 }
 export async function removeEmployee(employee) {

@@ -53,10 +53,15 @@ export default function EmployeeForm() {
     try {
       const payload = { ...model, atividades: model.naoUsaEPI ? [] : model.atividades, anexo: removeStoredFile ? null : model.anexo };
       let saved = await saveEmployee(payload);
-      if (removeStoredFile && !file) await deleteAttachment(saved.id);
-      if (file) {
-        const metadata = await saveAttachment(saved.id, file);
-        saved = await saveEmployee({ ...saved, anexo: metadata });
+      try {
+        if (removeStoredFile && !file) await deleteAttachment(saved.id);
+        if (file) {
+          const metadata = await saveAttachment(saved.id, file);
+          saved = await saveEmployee({ ...saved, anexo: metadata }, { log: false });
+        }
+      } catch (attachmentError) {
+        navigate('/funcionarios/' + saved.id, { state: { warning: 'Cadastro salvo, mas o anexo não foi atualizado: ' + attachmentError.message } });
+        return;
       }
       navigate('/funcionarios/' + saved.id);
     } catch (e) { setError(e.message || 'Não foi possível salvar o cadastro.'); }
@@ -85,6 +90,7 @@ export default function EmployeeForm() {
         <div className="panel-heading"><div><h2>2. Atividades e EPIs</h2><p>Registre os equipamentos de proteção e seus CAs</p></div></div>
         <label className="switch-label epi-toggle"><input type="checkbox" checked={model.naoUsaEPI} onChange={(e) => setModel((prev) => ({ ...prev, naoUsaEPI: e.target.checked, atividades: e.target.checked ? [] : prev.atividades.length ? prev.atividades : [emptyActivity()] }))} /><span>O funcionário não utiliza EPI nas atividades registradas</span></label>
         {!model.naoUsaEPI && <div className="activities">
+          {fieldError('atividades')}
           {model.atividades.map((activity, index) => <fieldset className="activity-card" key={activity.id}><legend>Atividade {index + 1}</legend><div className="activity-head"><label className="field"><span>Nome da atividade</span><input value={activity.nome} onChange={(e) => updateActivity(index, e.target.value)} aria-invalid={Boolean(errors['atividade-' + index])} aria-describedby={errors['atividade-' + index] ? 'erro-atividade-' + index : undefined} placeholder="Ex.: Reposição" />{fieldError('atividade-' + index)}</label><button className="btn btn-text danger-text" type="button" onClick={() => setModel((prev) => ({ ...prev, atividades: prev.atividades.filter((_, i) => i !== index) }))}>Remover atividade</button></div>
             {activity.epis.map((epi, j) => <div className="epi-row" key={epi.id}><label className="field"><span>Equipamento de proteção</span><select value={epi.nome} aria-invalid={Boolean(errors['epi-' + index + '-' + j])} onChange={(e) => updateEpi(index, j, 'nome', e.target.value)}>{epiOptions.map((name) => <option key={name}>{name}</option>)}</select>{fieldError('epi-' + index + '-' + j)}</label><label className="field"><span>Número do CA</span><input inputMode="numeric" value={epi.ca} onChange={(e) => updateEpi(index, j, 'ca', e.target.value)} aria-invalid={Boolean(errors['ca-' + index + '-' + j])} aria-describedby={errors['ca-' + index + '-' + j] ? 'erro-ca-' + index + '-' + j : undefined} placeholder="Ex.: 12345" />{fieldError('ca-' + index + '-' + j)}</label><button className="btn btn-outline btn-sm" type="button" onClick={() => removeEpi(index, j)} aria-label={'Remover EPI ' + (j + 1) + ' da atividade ' + (index + 1)}>Remover EPI</button></div>)}
             {fieldError('atividade-epis-' + index)}
