@@ -103,3 +103,7 @@ table{width:100%;border-collapse:collapse;min-width:600px;text-align:left}th{bac
   .history-empty{flex-direction:column;text-align:center;padding:20px 4px}
   .feature-grid{grid-template-columns:1fr}
 }
+
+/* Marca compartilhada entre a interface e o favicon do navegador */
+.brand-icon{background:transparent}
+.brand-icon img{display:block;width:42px;height:42px;border-radius:10px}

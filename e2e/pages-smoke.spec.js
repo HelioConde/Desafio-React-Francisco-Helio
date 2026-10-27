@@ -22,3 +22,15 @@ test('GitHub Pages: assets, SPA e persistência de demonstração', async ({ pag
   expect(exceptions, 'Exceções JavaScript').toEqual([]);
   expect(consoleErrors, 'Erros no console').toEqual([]);
 });
+
+test('ícone próprio carregado no navegador e na marca do menu', async ({ page, request }) => {
+  await page.goto('./#/');
+  const icon = page.locator('link[rel="icon"][type="image/svg+xml"]');
+  await expect(icon).toHaveCount(1);
+  const href = await icon.getAttribute('href');
+  expect(href).toContain('favicon.svg');
+  const response = await request.get(new URL(href, page.url()).toString());
+  expect(response.ok()).toBe(true);
+  expect(await response.text()).toContain('Capacete de proteção');
+  await expect(page.locator('.brand-icon img')).toBeVisible();
+});

@@ -19,6 +19,7 @@ React 18 · Vite · JSON Server · Testes Vitest e Playwright
 - Anexos PDF/PNG/JPG de até 2 MB salvos localmente em IndexedDB.
 - Histórico de modificações no navegador e página informativa.
 - Menu responsivo, foco visível, rótulos acessíveis e movimento reduzido.
+- Identidade visual própria com capacete de segurança no menu e favicon SVG/ICO na aba do navegador.
 
 > **Atenção:** projeto de estudo. Use apenas dados fictícios. Não há autenticação, controle de acesso ou backend seguro para informações reais de RH.
 

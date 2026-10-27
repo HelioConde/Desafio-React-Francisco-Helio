@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartColumn, faUsers, faClockRotateLeft, faCircleUser, faBars, faXmark, faHelmetSafety } from '@fortawesome/free-solid-svg-icons';
+import { faChartColumn, faUsers, faClockRotateLeft, faCircleUser, faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { isDemo } from '../lib/api.js';
 
 const navigation = [
@@ -20,7 +20,7 @@ export default function Layout() {
       <a className="skip-link" href="#conteudo" onClick={(event) => { event.preventDefault(); document.getElementById("conteudo")?.focus(); }}>Pular para o conteúdo</a>
       <aside className={'sidebar ' + (menuOpen ? 'sidebar-open' : '')} aria-label="Menu principal">
         <div className="brand">
-          <div className="brand-icon" aria-hidden="true"><FontAwesomeIcon icon={faHelmetSafety} /></div>
+          <div className="brand-icon" aria-hidden="true"><img src={import.meta.env.BASE_URL + "favicon.svg"} alt="" width="42" height="42" /></div>
           <div><strong>SEA • Gestão EPI</strong><span>Desafio React</span></div>
           <button className="icon-btn mobile-only close-menu" type="button" aria-label="Fechar menu" onClick={() => setMenuOpen(false)}><FontAwesomeIcon icon={faXmark} /></button>
         </div>
