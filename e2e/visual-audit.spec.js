@@ -17,6 +17,7 @@ const viewports = [
   { name: 'mobile', width: 375, height: 812 },
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'notebook', width: 1024, height: 768 },
+  { name: 'desktop-compacto', width: 1366, height: 648 },
   { name: 'desktop', width: 1600, height: 900 },
 ];
 
