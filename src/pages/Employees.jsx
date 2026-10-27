@@ -61,7 +61,7 @@ export default function Employees() {
           <label className="field"><span>Ordenação</span><select value={order} onChange={change(setOrder)}><option value="nome">Nome (A–Z)</option><option value="nome-desc">Nome (Z–A)</option><option value="recente">Alterados recentemente</option></select></label>
         </div>
         {loading ? <p className="empty-inline" role="status">Carregando registros…</p> : !visible.length ? <div className="empty-inline"><p>Nenhum funcionário encontrado.</p><button type="button" className="btn btn-outline" onClick={() => { setSearch(''); setCargo('todos'); setStatus('todos'); }}>Limpar filtros</button></div> :
-        <div className="table-wrap"><table><thead><tr><th scope="col">Nome</th><th scope="col">Cargo</th><th scope="col">Status</th><th scope="col">Atividades</th><th scope="col" className="actions-col">Ações</th></tr></thead><tbody>{visible.map((p) =>
+        <><div className="table-wrap"><table><thead><tr><th scope="col">Nome</th><th scope="col">Cargo</th><th scope="col">Status</th><th scope="col">Atividades</th><th scope="col" className="actions-col">Ações</th></tr></thead><tbody>{visible.map((p) =>
           <tr key={p.id}><td><div className="person-cell"><span className="avatar" aria-hidden="true">{p.nome.charAt(0)}</span><strong>{p.nome}</strong></div></td><td>{p.cargo}</td><td><span className={'status ' + (p.ativo ? 'status-active' : 'status-inactive')}>{p.ativo ? 'Ativo' : 'Inativo'}</span></td><td>{p.atividades.length}</td><td><div className="row-actions"><Link className="icon-btn" aria-label={'Ver ' + p.nome} title="Ver detalhes" to={'/funcionarios/' + p.id}><FontAwesomeIcon icon={faEye} /></Link><Link className="icon-btn" aria-label={'Editar ' + p.nome} title="Editar" to={'/funcionarios/' + p.id + '/editar'}><FontAwesomeIcon icon={faPen} /></Link><button className="icon-btn danger" type="button" aria-label={'Excluir ' + p.nome} title="Excluir" disabled={busy === p.id} onClick={() => handleDelete(p)}><FontAwesomeIcon icon={faTrashCan} /></button></div></td></tr>
         )}</tbody></table></div>
         <div className="mobile-employee-list" aria-label="Funcionários em cartões">
@@ -77,7 +77,7 @@ export default function Employees() {
               <button className="btn btn-outline btn-sm danger-text" type="button" aria-label={'Excluir ' + p.nome} disabled={busy === p.id} onClick={() => handleDelete(p)}><FontAwesomeIcon icon={faTrashCan} /> Excluir</button>
             </div>
           </article>)}
-        </div>}
+        </div></>}
         {!loading && filtered.length > PAGE_SIZE && <div className="pagination"><span>Página {page} de {pageCount}</span><div><button className="btn btn-outline btn-sm" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>Anterior</button><button className="btn btn-outline btn-sm" disabled={page >= pageCount} onClick={() => setPage((p) => p + 1)}>Próxima</button></div></div>}
       </section>
     </div>
