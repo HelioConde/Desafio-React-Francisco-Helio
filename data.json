@@ -1,49 +1,26 @@
 {
   "data": [
     {
-      "ativo": "Ativo",
-      "nome": "Daniel Alves da Silva",
-      "sexo": "Masculino",
-      "cpf": "999.999.999-99",
-      "nascimento": "99/99/9999",
-      "rg": "9.999.999",
-      "cargo": "Cargo 1",
-      "Atividades": [
-        {
-          "atividade": "Ativid. 1",
-          "epi": [
-            "Calçado de segurança"
-          ],
-          "ca": [
-            "teste1"
-          ]
-        }
+      "id": 1, "nome": "Funcionário Exemplo 01", "cpf": "", "sexo": "Não informado",
+      "cargo": "Operador de loja", "nascimento": "1995-04-12", "rg": "", "ativo": true,
+      "naoUsaEPI": false, "atividades": [
+        { "id": "at-1", "nome": "Reposição", "epis": [{ "id": "epi-1", "nome": "Calçado de segurança", "ca": "12345" }] }
       ],
-      "documento_ocupacional": null,
-      "id": 1
+      "anexo": null, "createdAt": "2026-01-10T10:00:00.000Z", "updatedAt": "2026-01-10T10:00:00.000Z"
     },
     {
-      "ativo": false,
-      "nome": "Vanessa Silva",
-      "sexo": "Feminino",
-      "cpf": "888.888.888-88",
-      "nascimento": "88/88/8888",
-      "rg": "8.888.888",
-      "cargo": "Cargo 1",
-      "Atividades": [
-        {
-          "atividade": "Ativid. 1",
-          "epi": [
-            "Calçado de segurança"
-          ],
-          "ca": [
-            ""
-          ]
-        }
+      "id": 2, "nome": "Funcionário Exemplo 02", "cpf": "", "sexo": "Não informado",
+      "cargo": "Administrativo", "nascimento": "1990-09-22", "rg": "", "ativo": false,
+      "naoUsaEPI": true, "atividades": [], "anexo": null,
+      "createdAt": "2026-02-04T10:00:00.000Z", "updatedAt": "2026-02-04T10:00:00.000Z"
+    },
+    {
+      "id": 3, "nome": "Funcionário Exemplo 03", "cpf": "", "sexo": "Não informado",
+      "cargo": "Estoquista", "nascimento": "1998-11-16", "rg": "", "ativo": true,
+      "naoUsaEPI": false, "atividades": [
+        { "id": "at-3", "nome": "Movimentação de estoque", "epis": [{ "id": "epi-3", "nome": "Capacete de segurança", "ca": "45678" }] }
       ],
-      "documento_ocupacional": null,
-      "usaEPI": false,
-      "id": 2
+      "anexo": null, "createdAt": "2026-02-15T10:00:00.000Z", "updatedAt": "2026-02-15T10:00:00.000Z"
     }
   ]
 }

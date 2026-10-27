@@ -1,0 +1,50 @@
+name: Qualidade e Capturas Automáticas
+on:
+  push:
+    branches: [main, feature/modernizacao-crud-design-qa]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Testes e screenshots
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependências
+        id: install
+        run: npm install --no-audit --no-fund
+      - name: Lint
+        run: npm run lint
+      - name: Testes unitários
+        run: npm run test:unit
+      - name: Build Vite (produção)
+        run: npm run build
+      - name: Chromium para Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Testes funcionais
+        id: e2e
+        run: npm run test:e2e -- --grep-invert "Capturas automáticas"
+      - name: Capturas completas e auditoria do navegador
+        if: ${{ always() && steps.install.outcome == 'success' }}
+        run: npm run test:visual
+      - name: Evidências de QA, mesmo se houver falhas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditoria-visual-playwright
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 14
+          if-no-files-found: warn
